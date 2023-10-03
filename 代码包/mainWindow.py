@@ -140,72 +140,6 @@ class InnerCmd(QThread):  # 继承Qthread
         if Ele_States[self.eId] == EleStates.malfunction:
             self.fault_execute()
 
-    # def door(self):
-    #     opening_time = 0.0
-    #     time_opened = 0.0
-    #     # 改变电梯门的状态
-    #     Ele_States[self.eId] = EleStates.door_opening
-    #     while True:
-    #         if Ele_States[self.eId] == EleStates.malfunction:
-    #             self.fault_execute()
-    #             break
-    #
-    #         # 如果按了开门
-    #         elif is_open_btn_clicked[self.eId]:
-    #             # 当按下时门正在关上
-    #             if Ele_States[self.eId] == EleStates.door_closing:
-    #                 Ele_States[self.eId] = EleStates.door_opening
-    #
-    #             # 门已经开了，延续开门时间
-    #             if Ele_States[self.eId] == EleStates.door_opened:
-    #                 time_opened = 0
-    #
-    #             is_open_btn_clicked[self.eId] = False
-    #
-    #         elif is_close_btn_clicked[self.eId]:
-    #             Ele_States[self.eId] = EleStates.door_closing
-    #             time_opened = 0
-    #
-    #             is_close_btn_clicked[self.eId] = False
-    #
-    #         # 更新时间
-    #         # 门开
-    #         if Ele_States[self.eId] == EleStates.door_opening:
-    #             # 放开锁
-    #             mutex.unlock()
-    #             self.msleep(10)
-    #             opening_time += 10
-    #             # 锁
-    #             mutex.lock()
-    #             open_progress[self.eId] = opening_time / DOOR_OPENING_TIME
-    #             if opening_time == DOOR_OPENING_TIME:
-    #                 Ele_States[self.eId] = EleStates.door_opening
-    #
-    #         # 门已打开
-    #         elif EleStates[self.eId] == EleStates.door_opened:
-    #             # 放开锁
-    #             mutex.unlock()
-    #             self.msleep(self.time_slice)
-    #             time_opened += self.time_slice
-    #             # 锁
-    #             mutex.lock()
-    #             if time_opened == DOOR_OPENING_TIME:
-    #                 Ele_States[self.eId] = EleStates.door_closing
-    #
-    #         # 门正在关闭
-    #         elif EleStates[self.eId] == EleStates.door_closing:
-    #             # 放开锁
-    #             mutex.unlock()
-    #             self.msleep(self.time_slice)
-    #             opening_time -= self.time_slice
-    #             # 锁
-    #             mutex.lock()
-    #             open_progress[self.eId] = opening_time / DOOR_OPENING_TIME
-    #             if opening_time == 0:
-    #                 # 门关
-    #                 Ele_States[self.eId] = EleStates.leisure
-    #                 break
-
     # 故障处理函数
     def fault_execute(self):
         # 更新电梯状态为故障
@@ -570,34 +504,6 @@ class OSUi(QWidget):
                 button.setStyleSheet("background-color : rgb(255,255,255)")
             mutex.unlock()
             return
-
-    # # 如果点击了内部开门按钮
-    # def inner_open_btn_clicked(self, eId):
-    #     mutex.lock()
-    #     if Ele_States[eId] == EleStates.malfunction:
-    #         # win32api.MessageBox(None, "電梯故障", "SORRY", win32con.MB_ICONINFORMATION)
-    #         mutex.unlock()
-    #         return
-    #
-    #     if Ele_States[eId] == EleStates.door_closing or Ele_States[eId] == EleStates.door_opening:
-    #         is_open_btn_clicked[eId] = True
-    #         is_close_btn_clicked[eId] = False
-    #     mutex.unlock()
-    #     self.inner_open_btn[eId].setStyleSheet("background-color : yellow")
-    #
-    # def inner_close_btn_clicked(self, eId):
-    #     mutex.lock()
-    #     if Ele_States[eId] == EleStates.malfunction:
-    #         # win32api.MessageBox(None, "電梯故障", "SORRY", win32con.MB_ICONINFORMATION)
-    #         mutex.unlock()
-    #         return
-    #
-    #     if Ele_States[eId] == EleStates.door_opening or Ele_States[eId] == EleStates.door_opening:
-    #         is_close_btn_clicked[eId] = True
-    #         is_open_btn_clicked[eId] = False
-    #     mutex.unlock()
-    #
-    #     self.inner_close_btn[eId].setStyleSheet("background-color : yellow")
 
     # 如果点击了外部的电梯呼唤按钮
     def outer_direction_btn_clicked(self, floor, move_state):
